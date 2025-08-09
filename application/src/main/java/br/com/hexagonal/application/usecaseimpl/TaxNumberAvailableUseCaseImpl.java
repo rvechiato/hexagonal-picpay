@@ -6,6 +6,7 @@ import br.com.hexagonal.usacase.TaxNumerAvailableUseCase;
 public class TaxNumberAvailableUseCaseImpl implements TaxNumerAvailableUseCase {
 
     private final TaxNumberAvailableGateway taxNumberAvailableGateway;
+
     public TaxNumberAvailableUseCaseImpl(TaxNumberAvailableGateway taxNumberAvailableGateway) {
         this.taxNumberAvailableGateway = taxNumberAvailableGateway;
     }

@@ -13,29 +13,28 @@ public class User {
     private TaxNumber taxNumber;
     private String fullName;
     private UserTypeEnum userType;
-    private TransactionPin transactionPin;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public User(UUID id, String email, String password, TaxNumber taxNumber, String fullName, UserTypeEnum userType, TransactionPin transactionPin, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public User(UUID id, String email, String password, TaxNumber taxNumber, String fullName, UserTypeEnum userType, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.taxNumber = taxNumber;
         this.fullName = fullName;
         this.userType = userType;
-        this.transactionPin = transactionPin;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 
-    public User(String email, String password, TaxNumber taxNumber, String fullName, UserTypeEnum userType, TransactionPin transactionPin) {
+    public User(String email, String password, TaxNumber taxNumber, String fullName, UserTypeEnum userType) {
+        this.id = UUID.randomUUID();
         this.email = email;
         this.password = password;
         this.taxNumber = taxNumber;
         this.fullName = fullName;
         this.userType = userType;
-        this.transactionPin = transactionPin;
+        this.createdAt = LocalDateTime.now();
     }
 
     public User() {
@@ -89,18 +88,9 @@ public class User {
         this.userType = userType;
     }
 
-    public TransactionPin getTransactionPin() {
-        return transactionPin;
-    }
-
-    public void setTransactionPin(TransactionPin transactionPin) {
-        this.transactionPin = transactionPin;
-    }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
@@ -114,11 +104,11 @@ public class User {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(taxNumber, user.taxNumber) && Objects.equals(fullName, user.fullName) && userType == user.userType && Objects.equals(transactionPin, user.transactionPin) && Objects.equals(createdAt, user.createdAt);
+        return Objects.equals(id, user.id) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(taxNumber, user.taxNumber) && Objects.equals(fullName, user.fullName) && userType == user.userType && Objects.equals(createdAt, user.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, password, taxNumber, fullName, userType, transactionPin, createdAt);
+        return Objects.hash(id, email, password, taxNumber, fullName, userType, createdAt);
     }
 }
