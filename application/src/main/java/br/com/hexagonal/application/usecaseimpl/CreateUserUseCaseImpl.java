@@ -27,19 +27,23 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     }
     @Override
     public void create(User user, String pin) throws TaxNumberException, TransactionPinException {
-        if(!taxNumerAvailableUseCase.isTaxNumberAvailable(user.getTaxNumber().getValue())) {
-            throw new TaxNumberException(ErrorCodeEnum.ON0002.getMessage(), ErrorCodeEnum.ON0002.getCode());
-        }
-
-        if (!emailAvailableUseCase.isEmailAvailable(user.getEmail())){
-            throw new TaxNumberException(ErrorCodeEnum.ON0003.getMessage(), ErrorCodeEnum.ON0003.getCode());
-        }
+        validateAvaliable(user);
 
         TransactionPin transactionPin = new TransactionPin(pin);
         Wallet wallet = new Wallet(transactionPin, BigDecimal.ZERO, user);
 
         if(!createUserGateway.create(user, wallet)){
             throw new InternalServerErrorException(ErrorCodeEnum.ON0004.getMessage(), ErrorCodeEnum.ON0004.getCode());
+        }
+    }
+
+    private void validateAvaliable(User user) throws TaxNumberException {
+        if(!taxNumerAvailableUseCase.isTaxNumberAvailable(user.getTaxNumber().getValue())) {
+            throw new TaxNumberException(ErrorCodeEnum.ON0002.getMessage(), ErrorCodeEnum.ON0002.getCode());
+        }
+
+        if (!emailAvailableUseCase.isEmailAvailable(user.getEmail())){
+            throw new TaxNumberException(ErrorCodeEnum.ON0003.getMessage(), ErrorCodeEnum.ON0003.getCode());
         }
     }
 }

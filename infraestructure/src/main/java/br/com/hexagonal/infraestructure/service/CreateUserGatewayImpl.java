@@ -9,6 +9,7 @@ import br.com.hexagonal.infraestructure.mapper.WalletMapper;
 import br.com.hexagonal.infraestructure.repository.TransactionPinEntityRepository;
 import br.com.hexagonal.infraestructure.repository.UserEntityRepository;
 import br.com.hexagonal.infraestructure.repository.WalletEntityRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import static br.com.hexagonal.infraestructure.utils.Utilities.log;
@@ -33,6 +34,7 @@ public class CreateUserGatewayImpl implements CreateUserGateway {
     }
 
     @Override
+    @Transactional
     public Boolean create(User user, Wallet wallet) {
         try{
             log.info("Inicio da criacao do usuario::CreateUserGatewayImpl");

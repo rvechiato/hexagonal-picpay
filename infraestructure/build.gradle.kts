@@ -17,7 +17,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    //implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 
     implementation("com.auth0:java-jwt:4.2.1")
     compileOnly("org.projectlombok:lombok")
@@ -40,6 +40,13 @@ dependencies {
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+}
+
+dependencyManagement {
+    imports {
+        val springCloudVersion = "2022.0.4"
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+    }
 }
 
 tasks.test {

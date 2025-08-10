@@ -30,4 +30,14 @@ public class UserMapper {
                 request.typeEnum()
         );
     }
+
+    public User toUser(UserEntity user){
+        return new User(
+                user.getEmail(),
+                user.getPassword(),
+                new TaxNumber(user.getTaxNumber()),
+                user.getFulname(),
+                user.getType()
+        );
+    }
 }
