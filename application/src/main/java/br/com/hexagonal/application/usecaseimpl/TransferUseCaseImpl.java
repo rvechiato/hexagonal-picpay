@@ -14,10 +14,10 @@ import java.math.BigDecimal;
 
 public class TransferUseCaseImpl implements TransferUseCase {
 
+    private TransferGateway transferGateway;
     private FindWalletByTaxNumberUseCase findUserByTaxNumberUseCase;
     private TransactionValidadeUseCase transactionValidadeUseCase;
     private CreateTransactionUseCase createTransactionUseCase;
-    private TransferGateway transferGateway;
     private UserNotificationUseCase  userNotificationUseCase;
     private TransactionPinValidateUseCase transactionPinValidateUseCase;
 

@@ -19,6 +19,6 @@ public class FindWalletByTaxNumberGatewayImpl implements FindWalletByTaxNumberGa
 
     @Override
     public Wallet findByTaxNumber(String taxNumber) {
-        return walletMapper.toWallet(walletEntityRepository.findByTaxNumber(taxNumber));
+        return walletMapper.toWallet(walletEntityRepository.findByUserEntityTaxNumber(taxNumber));
     }
 }
