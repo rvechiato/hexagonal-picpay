@@ -46,15 +46,16 @@ public class TransferUseCaseImpl implements TransferUseCase {
 
         from.transfer(value);
         to.receivedBalancer(value);
+        var transaction = new Transaction(from, to, value);
 
-        var transaction = createTransactionUseCase.create(new Transaction(from, to, value));
-        transactionValidadeUseCase.isValidTransaction(transaction);
+        var transactionSaved = createTransactionUseCase.create(transaction);
+        transactionValidadeUseCase.isValidTransaction(transactionSaved);
 
-        if(!transferGateway.transfer(transaction)){
+        if(!transferGateway.transfer(transactionSaved)){
             throw new InternalServerErrorException(ErrorCodeEnum.TRP003.getMessage(),ErrorCodeEnum.TRP003.getCode());
         }
 
-        if(!userNotificationUseCase.notificate(transaction, to.getUser().getEmail()))  {
+        if(!userNotificationUseCase.notificate(transactionSaved, to.getUser().getEmail()))  {
             throw new NotificationException(ErrorCodeEnum.NOT001.getMessage(), ErrorCodeEnum.NOT001.getCode());
         }
 

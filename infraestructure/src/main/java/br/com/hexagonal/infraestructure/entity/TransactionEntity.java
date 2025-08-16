@@ -2,12 +2,18 @@ package br.com.hexagonal.infraestructure.entity;
 
 import br.com.hexagonal.core.domain.enuns.TransactionStatusEnum;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Data
 @Entity
 @Table(name = "tb_transaction")
+@AllArgsConstructor
+@NoArgsConstructor
 public class TransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,4 +39,13 @@ public class TransactionEntity {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public TransactionEntity(WalletEntity fromWallet, WalletEntity toWallet, BigDecimal value, TransactionStatusEnum statusEnum, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.fromWallet = fromWallet;
+        this.toWallet = toWallet;
+        this.value = value;
+        this.statusEnum = statusEnum;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 }
